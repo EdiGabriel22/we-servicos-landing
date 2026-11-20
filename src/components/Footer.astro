@@ -1,0 +1,245 @@
+---
+import Logo from './Logo.astro';
+import { asset, whatsappLink } from '../lib';
+
+const nav = [
+  { href: '#servicos', label: 'Serviços' },
+  { href: '#sobre', label: 'Sobre' },
+  { href: '#diferenciais', label: 'Diferenciais' },
+  { href: '#como-funciona', label: 'Como Funciona' },
+  { href: '#contato', label: 'Contato' },
+];
+
+const contacts = [
+  { icon: 'phone-muted', text: '(11) 9 9999-9999', href: 'tel:+5511999999999' },
+  { icon: 'whatsapp-muted', text: 'WhatsApp', href: whatsappLink(), external: true },
+  { icon: 'mail-muted', text: 'contato@weservicos.com.br', href: 'mailto:contato@weservicos.com.br' },
+  { icon: 'pin-muted', text: 'Grande São Paulo e Interior' },
+];
+
+const socials = [
+  { label: 'Instagram', short: 'I', href: '#' },
+  { label: 'Facebook', short: 'F', href: '#' },
+  { label: 'LinkedIn', short: 'L', href: '#' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <Logo variant="footer" />
+        <p class="footer__about">Força, agilidade e segurança para movimentar o seu negócio.</p>
+      </div>
+
+      <nav aria-label="Rodapé">
+        <h2 class="footer__heading">Navegação</h2>
+        <ul class="footer__list">
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="footer__heading">Contato</h2>
+        <ul class="footer__list footer__list--icons">
+          {
+            contacts.map((c) => (
+              <li>
+                <img src={asset(`icons/${c.icon}.svg`)} alt="" width="16" height="16" />
+                {c.href ? (
+                  <a href={c.href} {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}>
+                    {c.text}
+                  </a>
+                ) : (
+                  <span>{c.text}</span>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="footer__heading">Redes Sociais</h2>
+        <ul class="footer__socials">
+          {
+            socials.map((s) => (
+              <li>
+                <a class="icon-box footer__social" href={s.href} aria-label={s.label}>
+                  {s.short}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="footer__hours-label">Horário de atendimento</p>
+        <p class="footer__hours">Seg – Sáb: 7h às 20h<br />Dom: 8h às 16h</p>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© {year} WE Serviços Gerais. Todos os direitos reservados.</p>
+      <p class="footer__status"><span aria-hidden="true"></span>Disponível agora para atendimento</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: 60px 0 32px;
+    background: var(--footer);
+    border-top: 0.8px solid rgba(18, 71, 201, 0.2);
+    color: var(--text-4);
+    font-size: 14px;
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px;
+  }
+
+  .footer__about {
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  .footer__heading {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .footer__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+    line-height: 21px;
+  }
+
+  .footer__list a {
+    transition: color 0.15s ease;
+  }
+
+  .footer__list a:hover {
+    color: var(--orange);
+  }
+
+  .footer__list--icons {
+    gap: 12px;
+  }
+
+  .footer__list--icons li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-wrap: anywhere;
+  }
+
+  .footer__list--icons img {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .footer__socials {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer__social {
+    width: 40px;
+    height: 40px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-4);
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .footer__social:hover {
+    color: var(--white);
+    border-color: var(--blue);
+  }
+
+  .footer__hours-label {
+    margin-top: 24px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .footer__hours {
+    margin-top: 8px;
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 0.8px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-5);
+    font-size: 13px;
+  }
+
+  .footer__status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-4);
+    font-size: 12px;
+  }
+
+  .footer__status span {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: #22c55e;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    70% {
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer__status span {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+  }
+</style>

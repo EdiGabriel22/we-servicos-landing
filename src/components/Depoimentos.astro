@@ -1,0 +1,160 @@
+---
+const testimonials = [
+  {
+    quote:
+      'Contratamos a WE para uma operação de descarga emergencial e superaram todas as expectativas. Equipe rápida, organizada e sem nenhum problema com a mercadoria.',
+    name: 'Ricardo Almeida',
+    company: 'Distribuidora Almeida & Filhos',
+  },
+  {
+    quote:
+      'Parceiros há 2 anos. A WE é referência em compromisso e pontualidade. Já indiquei para outros clientes sem hesitar.',
+    name: 'Fernanda Costa',
+    company: 'Grupo Logística FC',
+  },
+  {
+    quote:
+      'Ótimo custo-benefício. Cumprem o que prometem, chegam no horário e a equipe é muito profissional. Recomendo.',
+    name: 'Paulo Henrique',
+    company: 'Atacado PH Comércio',
+  },
+];
+
+const clients = [
+  'Distribuidora Almeida',
+  'Grupo FC Logística',
+  'Atacado PH',
+  'Indústria MasterFlex',
+  'Transportadora Norte',
+  'Event Solutions',
+];
+---
+
+<section class="section testimonials" aria-labelledby="dep-title">
+  <div class="container">
+    <p class="eyebrow">Prova Social</p>
+    <h2 class="title" id="dep-title">O que dizem nossos clientes</h2>
+    <p class="lead">Mais de 80 empresas já confiaram na WE para suas operações.</p>
+
+    <div class="testimonials__grid">
+      {
+        testimonials.map((t) => (
+          <figure class="quote reveal">
+            <div class="quote__stars" role="img" aria-label="5 de 5 estrelas">
+              ★★★★★
+            </div>
+            <blockquote class="quote__text">“{t.quote}”</blockquote>
+            <figcaption class="quote__author">
+              <strong>{t.name}</strong>
+              <span>{t.company}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <div class="clients">
+      <p class="clients__label">Empresas que já trabalharam com a WE</p>
+      <ul class="clients__list">
+        {clients.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+  }
+
+  .quote {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 40px 32px;
+    background: var(--surface);
+    border-top: 2.4px solid var(--blue);
+  }
+
+  .quote__stars {
+    color: var(--orange);
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 4px;
+  }
+
+  .quote__text {
+    flex: 1;
+    margin: 20px 0 0;
+    color: var(--text-2);
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .quote__author {
+    display: flex;
+    flex-direction: column;
+    margin-top: 28px;
+  }
+
+  .quote__author strong {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .quote__author span {
+    color: var(--text-3);
+    font-size: 13px;
+    line-height: 19.5px;
+  }
+
+  .clients {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 0.8px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+  }
+
+  .clients__label {
+    color: var(--text-4);
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .clients__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 32px;
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .clients__list li {
+    font-family: var(--font-display);
+    color: var(--text-5);
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 1px;
+    transition: color 0.2s ease;
+  }
+
+  .clients__list li:hover {
+    color: var(--text-2);
+  }
+
+  @media (max-width: 960px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

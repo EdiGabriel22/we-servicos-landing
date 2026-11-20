@@ -1,0 +1,130 @@
+---
+import { asset } from '../lib';
+
+const services = [
+  {
+    icon: 'truck',
+    title: 'Carga e Descarga',
+    text: 'Operações de carga e descarga com equipe treinada, garantindo segurança para mercadorias e agilidade no fluxo.',
+  },
+  {
+    icon: 'box',
+    title: 'Movimentação de Materiais',
+    text: 'Transferência interna e externa de materiais com técnica adequada para diferentes volumes e tipos de carga.',
+  },
+  {
+    icon: 'warehouse',
+    title: 'Organização de Estoque',
+    text: 'Organização, separação e inventário de estoque com eficiência para otimizar sua operação logística.',
+  },
+  {
+    icon: 'gear',
+    title: 'Apoio Operacional',
+    text: 'Suporte completo em operações logísticas, montagem, desmontagem e atividades auxiliares no seu ambiente.',
+  },
+];
+---
+
+<section class="section services" id="servicos" aria-labelledby="servicos-title">
+  <div class="container">
+    <p class="eyebrow">Nossos Serviços</p>
+    <h2 class="title" id="servicos-title">Soluções completas para<br />sua operação</h2>
+    <p class="lead services__lead">Do planejamento à execução, cobrimos todas as etapas da movimentação logística.</p>
+
+    <div class="services__grid">
+      {
+        services.map((s) => (
+          <article class="service reveal">
+            <img class="service__icon" src={asset(`icons/${s.icon}.svg`)} alt="" width="32" height="32" />
+            <h3 class="service__title">{s.title}</h3>
+            <p class="service__text">{s.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services__lead {
+    max-width: 500px;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 64px;
+  }
+
+  .service {
+    position: relative;
+    overflow: hidden;
+    padding: 48px 36px;
+    background: var(--surface);
+    border-top: 2.4px solid transparent;
+    transition: border-color 0.25s ease, background-color 0.25s ease, opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .service:nth-child(even) {
+    background: var(--surface-2);
+  }
+
+  .service:hover {
+    border-top-color: var(--orange);
+    background: #101b30;
+  }
+
+  /* triângulo decorativo no canto inferior direito */
+  .service::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, rgba(18, 71, 201, 0.1) 50%);
+    transition: background 0.25s ease;
+  }
+
+  .service:hover::after {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0) 50%, rgba(245, 166, 35, 0.14) 50%);
+  }
+
+  .service__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .service__title {
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.5;
+  }
+
+  .service__text {
+    margin-top: 12px;
+    color: var(--text-3);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 1024px) {
+    .services__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .services__grid {
+      grid-template-columns: 1fr;
+      margin-top: 48px;
+    }
+
+    .service {
+      padding: 36px 28px;
+    }
+  }
+</style>

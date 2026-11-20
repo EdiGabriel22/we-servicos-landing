@@ -1,0 +1,163 @@
+---
+const steps = [
+  {
+    n: '01',
+    title: 'Solicitação',
+    text: 'Entre em contato via WhatsApp, e-mail ou formulário. Nos conte sobre sua demanda, volume e prazo.',
+    filled: true,
+  },
+  {
+    n: '02',
+    title: 'Planejamento',
+    text: 'Nossa equipe analisa a operação e estrutura um plano de execução com equipe e recursos adequados.',
+    filled: true,
+  },
+  {
+    n: '03',
+    title: 'Execução',
+    text: 'Chegamos no horário combinado e executamos com eficiência, cuidado e comunicação constante.',
+    filled: false,
+  },
+  {
+    n: '04',
+    title: 'Conclusão',
+    text: 'Entregamos a operação finalizada, com relatório e suporte pós-serviço. Sua satisfação é o resultado.',
+    filled: false,
+  },
+];
+---
+
+<section class="section section--line section--line-strong how" id="como-funciona" aria-labelledby="how-title">
+  <div class="container">
+    <p class="eyebrow">Como Funciona</p>
+    <h2 class="title" id="how-title">Do pedido à entrega,<br />sem complicação</h2>
+
+    <ol class="how__steps">
+      {
+        steps.map((s) => (
+          <li class="step reveal">
+            <span class:list={['step__n', { 'step__n--filled': s.filled }]}>{s.n}</span>
+            <h3 class="step__title">{s.title}</h3>
+            <p class="step__text">{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .how {
+    background-color: var(--surface);
+    /* grid sutil de fundo */
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .how__steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 64px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* linha conectando os passos */
+  .how__steps::before {
+    content: '';
+    position: absolute;
+    top: 36px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+  }
+
+  .step {
+    position: relative;
+    padding-right: 24px;
+  }
+
+  .step__n {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    line-height: 30px;
+    background: var(--surface);
+    border: 1.6px solid var(--blue);
+  }
+
+  .step__n--filled {
+    background: var(--grad-blue);
+    border-color: transparent;
+  }
+
+  .step__title {
+    margin-top: 28px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+  }
+
+  .step__text {
+    margin-top: 10px;
+    color: var(--text-3);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 900px) {
+    .how__steps {
+      grid-template-columns: 1fr 1fr;
+      gap: 48px 0;
+    }
+
+    .how__steps::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .how__steps {
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin-top: 48px;
+    }
+
+    /* timeline vertical no mobile */
+    .how__steps::before {
+      display: block;
+      top: 36px;
+      bottom: 36px;
+      left: 35px;
+      right: auto;
+      width: 2px;
+      height: auto;
+      background: linear-gradient(180deg, var(--blue) 0%, var(--orange) 100%);
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      column-gap: 20px;
+      padding: 0 0 32px;
+    }
+
+    .step__n {
+      grid-row: span 2;
+    }
+
+    .step__title {
+      margin-top: 8px;
+    }
+  }
+</style>

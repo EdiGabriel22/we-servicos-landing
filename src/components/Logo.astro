@@ -1,0 +1,88 @@
+---
+interface Props {
+  variant?: 'header' | 'footer';
+}
+const { variant = 'header' } = Astro.props;
+---
+
+<span class:list={['logo', `logo--${variant}`]}>
+  <span class="logo__mark" aria-hidden="true">W</span>
+  <span class="logo__text">
+    {
+      variant === 'header' ? (
+        <>
+          <span class="logo__name">WE</span>
+          <span class="logo__tag">Serviços Gerais</span>
+        </>
+      ) : (
+        <>
+          <span class="logo__name">WE Serviços Gerais</span>
+          <span class="logo__tag">Logística &amp; Apoio Operacional</span>
+        </>
+      )
+    }
+  </span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: var(--grad-blue);
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: -1px;
+    color: var(--white);
+  }
+
+  .logo__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo__name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 1px;
+    color: var(--white);
+  }
+
+  .logo__tag {
+    margin-top: 4px;
+    font-size: 9px;
+    line-height: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  .logo--footer .logo__mark {
+    width: 31px;
+    height: 38px;
+    font-size: 16px;
+    letter-spacing: 0;
+  }
+
+  .logo--footer .logo__name {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0;
+  }
+
+  .logo--footer .logo__tag {
+    margin-top: 0;
+    font-size: 11px;
+    line-height: 16.5px;
+    color: var(--text-4);
+  }
+</style>

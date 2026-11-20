@@ -1,0 +1,304 @@
+---
+import { asset, whatsappLink, WHATSAPP_NUMBER } from '../lib';
+
+const channels = [
+  { icon: 'phone', label: 'Telefone', value: '(11) 9 9999-9999', href: 'tel:+5511999999999' },
+  { icon: 'whatsapp', label: 'WhatsApp', value: '(11) 9 9999-9999', href: whatsappLink(), external: true },
+  { icon: 'mail', label: 'E-mail', value: 'contato@weservicos.com.br', href: 'mailto:contato@weservicos.com.br' },
+  { icon: 'pin', label: 'Região atendida', value: 'Grande São Paulo e Interior' },
+];
+---
+
+<section class="section section--line contact" id="contato" aria-labelledby="contato-title">
+  <div class="container contact__grid">
+    <div>
+      <p class="eyebrow">Contato</p>
+      <h2 class="title title--sm" id="contato-title">Fale com a gente</h2>
+      <p class="contact__lead">
+        Estamos prontos para atender sua demanda. Entre em contato por qualquer canal abaixo.
+      </p>
+
+      <ul class="channels">
+        {
+          channels.map((c) => {
+            const inner = (
+              <>
+                <span class="icon-box">
+                  <img src={asset(`icons/${c.icon}.svg`)} alt="" width="16" height="16" />
+                </span>
+                <span class="channel__text">
+                  <span class="channel__label">{c.label}</span>
+                  <span class="channel__value">{c.value}</span>
+                </span>
+              </>
+            );
+            return (
+              <li>
+                {c.href ? (
+                  <a
+                    class="channel"
+                    href={c.href}
+                    {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div class="channel">{inner}</div>
+                )}
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+
+    <form class="form reveal" data-quote-form data-whatsapp={WHATSAPP_NUMBER} novalidate>
+      <h3 class="form__title">Solicitar Orçamento</h3>
+
+      <div class="form__fields">
+        <label class="field">
+          <span class="field__label">Seu nome *</span>
+          <input type="text" name="nome" placeholder="Nome completo" autocomplete="name" required />
+        </label>
+        <label class="field">
+          <span class="field__label">Empresa</span>
+          <input type="text" name="empresa" placeholder="Nome da empresa" autocomplete="organization" />
+        </label>
+        <label class="field">
+          <span class="field__label">Telefone / WhatsApp *</span>
+          <input
+            type="tel"
+            name="telefone"
+            placeholder="(11) 9 0000-0000"
+            autocomplete="tel"
+            inputmode="tel"
+            required
+            data-phone
+          />
+        </label>
+        <label class="field">
+          <span class="field__label">Descreva sua necessidade</span>
+          <textarea name="mensagem" rows="4" placeholder="Tipo de serviço, volume, prazo..."></textarea>
+        </label>
+
+        <p class="form__error" role="alert" data-form-error hidden>Preencha seu nome e um telefone válido.</p>
+
+        <button type="submit" class="btn btn--orange form__submit">Enviar Solicitação →</button>
+        <p class="form__hint">Ao enviar, abriremos o WhatsApp com sua mensagem pronta.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--surface);
+  }
+
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 472fr 566fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact__lead {
+    margin-top: 24px;
+    color: var(--text-3);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .channels {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 48px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .channel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  a.channel:hover .channel__value {
+    color: var(--orange);
+  }
+
+  a.channel:hover .icon-box {
+    border-color: var(--blue);
+  }
+
+  .channel__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .channel__label {
+    color: var(--text-4);
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .channel__value {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22.5px;
+    overflow-wrap: anywhere;
+    transition: color 0.15s ease;
+  }
+
+  .form {
+    padding: 48px 40px;
+    background: var(--bg);
+    border-top: 2.4px solid var(--blue);
+  }
+
+  .form__title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 33px;
+  }
+
+  .form__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field__label {
+    color: var(--text-3);
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 0.8px solid rgba(18, 71, 201, 0.3);
+    border-radius: 0;
+    color: var(--white);
+    font: 400 15px/22.5px var(--font-body);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .field textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--blue-2);
+    box-shadow: 0 0 0 3px rgba(30, 95, 232, 0.25);
+  }
+
+  .field input[aria-invalid='true'] {
+    border-color: #ef4444;
+  }
+
+  .form__submit {
+    width: 100%;
+    margin-top: 8px;
+    padding: 16px 24px;
+  }
+
+  .form__error {
+    color: #f87171;
+    font-size: 13px;
+  }
+
+  .form__hint {
+    color: var(--text-4);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  @media (max-width: 960px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+      gap: 56px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .form {
+      padding: 36px 20px;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-quote-form]');
+  const phone = form?.querySelector<HTMLInputElement>('[data-phone]');
+  const error = form?.querySelector<HTMLElement>('[data-form-error]');
+
+  // Máscara simples: (11) 9 0000-0000
+  phone?.addEventListener('input', () => {
+    const d = phone.value.replace(/\D/g, '').slice(0, 11);
+    let out = d;
+    if (d.length > 0) out = `(${d.slice(0, 2)}`;
+    if (d.length >= 3) out += `) ${d.slice(2, 3)}`;
+    if (d.length >= 4) out += ` ${d.slice(3, 7)}`;
+    if (d.length >= 8) out += `-${d.slice(7)}`;
+    phone.value = out;
+  });
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const nome = String(data.get('nome') ?? '').trim();
+    const empresa = String(data.get('empresa') ?? '').trim();
+    const tel = String(data.get('telefone') ?? '').trim();
+    const msg = String(data.get('mensagem') ?? '').trim();
+
+    const nomeInput = form.querySelector<HTMLInputElement>('[name="nome"]');
+    const nomeOk = nome.length >= 2;
+    const telOk = tel.replace(/\D/g, '').length >= 10;
+    nomeInput?.setAttribute('aria-invalid', String(!nomeOk));
+    phone?.setAttribute('aria-invalid', String(!telOk));
+
+    if (!nomeOk || !telOk) {
+      if (error) error.hidden = false;
+      (!nomeOk ? nomeInput : phone)?.focus();
+      return;
+    }
+    if (error) error.hidden = true;
+
+    const lines = [
+      'Olá! Gostaria de solicitar um orçamento.',
+      '',
+      `*Nome:* ${nome}`,
+      empresa ? `*Empresa:* ${empresa}` : null,
+      `*Telefone:* ${tel}`,
+      msg ? `*Necessidade:* ${msg}` : null,
+    ].filter((l) => l !== null);
+
+    const number = form.dataset.whatsapp;
+    window.open(`https://wa.me/${number}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+  });
+</script>

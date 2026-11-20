@@ -1,0 +1,184 @@
+---
+import Logo from './Logo.astro';
+
+const links = [
+  { href: '#servicos', label: 'Serviços' },
+  { href: '#sobre', label: 'Sobre' },
+  { href: '#diferenciais', label: 'Diferenciais' },
+  { href: '#contato', label: 'Contato' },
+];
+---
+
+<header class="header" id="topo" data-header>
+  <div class="header__inner">
+    <a href="#topo" class="header__brand" aria-label="WE Serviços Gerais, voltar ao topo">
+      <Logo />
+    </a>
+
+    <button class="header__toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span class="sr-only">Abrir menu</span>
+      <span class="header__bar"></span>
+      <span class="header__bar"></span>
+      <span class="header__bar"></span>
+    </button>
+
+    <nav class="header__nav" id="menu" aria-label="Principal">
+      {links.map((l) => <a href={l.href} class="header__link">{l.label}</a>)}
+      <a href="#contato" class="header__cta">Solicitar Orçamento</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    height: var(--header-h);
+    transition: background-color 0.25s ease, box-shadow 0.25s ease, backdrop-filter 0.25s ease;
+  }
+
+  .header.is-scrolled {
+    background: rgba(7, 12, 24, 0.88);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(18, 71, 201, 0.25);
+  }
+
+  .header__inner {
+    height: 100%;
+    max-width: calc(var(--container) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .header__link {
+    color: var(--text-1);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0.5px;
+    transition: color 0.15s ease;
+  }
+
+  .header__link:hover {
+    color: var(--orange);
+  }
+
+  .header__cta {
+    font-family: var(--font-display);
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: 0.5px;
+    color: var(--white);
+    padding: 10px 22px;
+    background: linear-gradient(168deg, var(--blue) 0%, var(--blue-2) 100%);
+    transition: filter 0.15s ease;
+  }
+
+  .header__cta:hover {
+    filter: brightness(1.12);
+  }
+
+  .header__toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 0.8px solid rgba(18, 71, 201, 0.4);
+    cursor: pointer;
+  }
+
+  .header__bar {
+    display: block;
+    height: 2px;
+    background: var(--white);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  @media (max-width: 860px) {
+    .header__toggle {
+      display: flex;
+    }
+
+    .header__nav {
+      position: fixed;
+      inset: var(--header-h) 0 auto 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 8px var(--gutter) 24px;
+      background: var(--bg);
+      border-bottom: 0.8px solid rgba(18, 71, 201, 0.3);
+      transform: translateY(-8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    }
+
+    .header.is-open {
+      background: var(--bg);
+    }
+
+    .header.is-open .header__nav {
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .header__link {
+      padding: 14px 0;
+      font-size: 16px;
+      border-bottom: 0.8px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .header__cta {
+      margin-top: 16px;
+      text-align: center;
+      padding: 14px 22px;
+      font-size: 14px;
+    }
+
+    .header.is-open .header__bar:nth-child(2) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .header.is-open .header__bar:nth-child(3) {
+      opacity: 0;
+    }
+    .header.is-open .header__bar:nth-child(4) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const setOpen = (open: boolean) => {
+      header.classList.toggle('is-open', open);
+      toggle?.setAttribute('aria-expanded', String(open));
+    };
+
+    toggle?.addEventListener('click', () => setOpen(!header.classList.contains('is-open')));
+    header.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+  }
+</script>

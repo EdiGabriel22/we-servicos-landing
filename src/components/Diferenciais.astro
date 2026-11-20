@@ -1,0 +1,118 @@
+---
+import { asset } from '../lib';
+
+const items = [
+  {
+    icon: 'shield',
+    title: 'Equipe Preparada',
+    text: 'Profissionais treinados e capacitados para cada tipo de operação, com foco em segurança e performance.',
+  },
+  {
+    icon: 'bolt',
+    title: 'Atendimento Ágil',
+    text: 'Resposta rápida e mobilização eficiente para atender demandas urgentes sem perda de qualidade.',
+  },
+  {
+    icon: 'clock',
+    title: 'Compromisso com Prazos',
+    text: 'Cumprimento rigoroso dos cronogramas estabelecidos. Sua operação não pode parar por causa de atrasos.',
+  },
+  {
+    icon: 'lock',
+    title: 'Segurança em Primeiro Lugar',
+    text: 'Protocolos de segurança seguidos à risca para proteger sua carga, seu espaço e nossa equipe.',
+  },
+];
+---
+
+<section class="section section--line section--line-strong diff" id="diferenciais" aria-labelledby="diff-title">
+  <div class="container diff__grid">
+    <div class="diff__intro">
+      <p class="eyebrow">Nossos Diferenciais</p>
+      <h2 class="title title--tight" id="diff-title">Por que escolher a WE?</h2>
+      <p class="lead diff__lead">
+        Não somos apenas mais uma empresa de serviços gerais. Somos parceiros operacionais que entendem o impacto direto
+        da logística no seu resultado.
+      </p>
+    </div>
+
+    <div class="diff__cards">
+      {
+        items.map((i) => (
+          <article class="diff-card reveal">
+            <img src={asset(`icons/${i.icon}.svg`)} alt="" width="28" height="28" />
+            <h3 class="diff-card__title">{i.title}</h3>
+            <p class="diff-card__text">{i.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .diff {
+    background: var(--surface);
+  }
+
+  .diff__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .diff__lead {
+    line-height: 1.7;
+  }
+
+  .diff__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .diff-card {
+    padding: 32px 24px;
+    background: var(--bg);
+    border-left: 2.4px solid var(--blue);
+    transition: border-color 0.25s ease, transform 0.25s ease, opacity 0.7s ease;
+  }
+
+  .diff-card:hover {
+    border-left-color: var(--orange);
+  }
+
+  .diff-card img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .diff-card__title {
+    margin-top: 16px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .diff-card__text {
+    margin-top: 8px;
+    color: var(--text-3);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 960px) {
+    .diff__grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .diff__cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

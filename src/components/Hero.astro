@@ -1,0 +1,220 @@
+---
+import { asset, whatsappLink } from '../lib';
+
+const stats = [
+  { value: '+500', label: 'Operações realizadas' },
+  { value: '+80', label: 'Empresas atendidas' },
+  { value: '5 anos', label: 'De experiência' },
+  { value: '100%', label: 'Compromisso com prazos' },
+];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <img class="hero__bg" src={asset('img/hero.jpg')} alt="" fetchpriority="high" />
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__stripe" aria-hidden="true"></div>
+
+  <div class="container hero__content">
+    <p class="hero__eyebrow">Logística &amp; Apoio Operacional</p>
+
+    <h1 class="hero__title" id="hero-title">
+      Força e agilidade para <span>movimentar</span> o seu negócio
+    </h1>
+
+    <p class="hero__text">
+      Equipe especializada em carga, descarga e apoio logístico. Atuamos com compromisso, pontualidade e segurança para
+      garantir a continuidade das suas operações.
+    </p>
+
+    <div class="hero__actions">
+      <a href="#contato" class="btn btn--orange">
+        <img src={asset('icons/clipboard.svg')} alt="" />
+        Solicitar Orçamento
+      </a>
+      <a href={whatsappLink()} class="btn btn--ghost" target="_blank" rel="noopener">
+        <img src={asset('icons/whatsapp-white.svg')} alt="" />
+        Falar no WhatsApp
+      </a>
+    </div>
+
+    <dl class="hero__stats">
+      {
+        stats.map((s) => (
+          <div class="hero__stat">
+            <dt>{s.label}</dt>
+            <dd>{s.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: max(776px, 100svh);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -3;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: linear-gradient(
+      141deg,
+      rgba(7, 12, 24, 0.97) 0%,
+      rgba(8, 18, 41, 0.8) 15%,
+      rgba(10, 26, 66, 0.635) 30%,
+      rgba(12, 40, 109, 0.468) 45%,
+      rgba(18, 71, 201, 0.3) 60%,
+      rgba(13, 42, 113, 0.45) 70%,
+      rgba(10, 27, 68, 0.6) 80%,
+      rgba(8, 18, 42, 0.75) 90%,
+      rgba(7, 12, 24, 0.9) 100%
+    );
+  }
+
+  /* fade inferior para emendar com a próxima seção */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 120px;
+    background: linear-gradient(180deg, rgba(7, 12, 24, 0) 0%, var(--bg) 100%);
+    z-index: -1;
+  }
+
+  .hero__stripe {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    background: linear-gradient(180deg, var(--orange) 0%, var(--blue) 100%);
+  }
+
+  .hero__content {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .hero__content > * {
+    max-width: 760px;
+  }
+
+  .hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .hero__eyebrow::before {
+    content: '';
+    width: 40px;
+    height: 2px;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .hero__title {
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 69.984px);
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  .hero__title span {
+    color: var(--orange);
+  }
+
+  .hero__text {
+    margin-top: 24px;
+    max-width: 560px !important;
+    color: var(--text-2);
+    font-size: clamp(17px, 1.8vw, 20px);
+    line-height: 1.7;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .hero__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 40px;
+    margin: 72px 0 0;
+    padding-top: 40px;
+    border-top: 0.8px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .hero__stat {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .hero__stat dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 32px;
+    line-height: 32px;
+    color: var(--orange);
+  }
+
+  .hero__stat dt {
+    margin-top: 4px;
+    color: var(--text-3);
+    font-size: 13px;
+    line-height: 19.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 640px) {
+    .hero__content {
+      padding-top: calc(var(--header-h) + 48px);
+      padding-bottom: 64px;
+    }
+
+    .hero__actions .btn {
+      flex: 1 1 100%;
+    }
+
+    .hero__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 16px;
+      margin-top: 56px;
+    }
+
+    .hero__stat dd {
+      font-size: 28px;
+    }
+
+    .hero__stat dt {
+      font-size: 11px;
+    }
+  }
+</style>
